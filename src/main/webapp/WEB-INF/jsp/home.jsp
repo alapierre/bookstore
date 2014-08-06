@@ -14,6 +14,6 @@
     <body>
         <h1>Hello World!</h1>
         
-        ala ma kota a kot ma ale
+        Cześć ${name}
     </body>
 </html>

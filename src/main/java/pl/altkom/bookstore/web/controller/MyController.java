@@ -6,6 +6,7 @@ package pl.altkom.bookstore.web.controller;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -18,11 +19,16 @@ public class MyController {
     protected Logger logger = Logger.getLogger(getClass());
     
     @RequestMapping("/home")
-    public ModelAndView home() {
+    public ModelAndView home(@RequestParam String name) {
         
         logger.debug("MyController.home()");
         
-        return new ModelAndView("home");
+        //String name = "Alicja";
+        
+        ModelAndView model = new ModelAndView("home");
+        model.addObject("name", name);
+        
+        return model;
     }
     
 }
