@@ -38,11 +38,11 @@ public class AddressController {
         
     }
     
-    @RequestMapping(value = "/address/save", method = RequestMethod.POST)
-    private @ResponseBody Address saveAddress(Address address) {
+    @RequestMapping(value = "/address/save", method = RequestMethod.POST, consumes = "application/json")
+    private @ResponseBody String saveAddress(@RequestBody Address address) {
         
         System.out.println(address);
-        return address;
+        return "OK";
     }
     
     @RequestMapping("/add-address")
@@ -61,6 +61,7 @@ public class AddressController {
         if(bindingResult.hasErrors()) {
             return "addAddress";
         } else {
+            addressDAO.save(address);
             return "redirect:/home.htm";
         }
         
