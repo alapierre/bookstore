@@ -7,23 +7,29 @@
 package pl.altkom.bookstore.web.model;
 
 import java.io.Serializable;
+import javax.management.DescriptorKey;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  * Describes Client
  *
  * @author Radek Kozak
  */
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "client_type")
 public abstract class Client implements Serializable {
 
-    private ClientType type;
-
-    public ClientType getType() {
-        return type;
-    }
-
-    public void setType(ClientType type) {
-        this.type = type;
-    }
+    @Id
+    @GeneratedValue
+    private int id;
+    
+    //private ClientType type;
 
     /**
      * All info required for generating invoice
@@ -34,5 +40,13 @@ public abstract class Client implements Serializable {
     public abstract InvoiceInfo getInvoiceInfo();
 
     public abstract String getClientId();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 }
