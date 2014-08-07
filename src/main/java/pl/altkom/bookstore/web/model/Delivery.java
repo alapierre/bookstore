@@ -6,15 +6,32 @@
 package pl.altkom.bookstore.web.model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author Administrator
  */
+@Entity
 public class Delivery {
-
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private int id;
+    
+    
+    @Temporal (TemporalType.TIMESTAMP)
     private Date deliveryTime;
     private String deliveryMethod;
+    
+    @ManyToOne
+    @JoinColumn(name = "delivery_address_id")
     private DeliveryAddress deliveryAddress;
     private double deliveyCost;
 
