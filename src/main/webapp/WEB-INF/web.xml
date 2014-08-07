@@ -18,7 +18,7 @@
 
     <servlet-mapping>
         <servlet-name>bookstore-web</servlet-name>
-        <url-pattern>*.htm</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     
     <listener>
@@ -28,7 +28,8 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/bookstore-web-servlet.xml          
+            /WEB-INF/bookstore-web-servlet.xml,
+            classpath:bookstore-web-core.xml          
         </param-value>
     </context-param>
     
