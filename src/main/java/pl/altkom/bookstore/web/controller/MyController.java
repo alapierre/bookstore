@@ -19,14 +19,14 @@ public class MyController {
     protected Logger logger = Logger.getLogger(getClass());
     
     @RequestMapping("/home")
-    public ModelAndView home(@RequestParam(required = false) String name) {
+    public ModelAndView home() {
         
         logger.debug("MyController.home()");
         
         //String name = "Alicja";
         
         ModelAndView model = new ModelAndView("home");
-        model.addObject("name", name);
+        model.addObject("name", "ala");
         
         return model;
     }
