@@ -6,9 +6,14 @@
 
 package pl.altkom.bookstore.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.altkom.bookstore.web.dao.AddressDAO;
 import pl.altkom.bookstore.web.model.Address;
 
 /**
@@ -18,16 +23,23 @@ import pl.altkom.bookstore.web.model.Address;
 @Controller
 public class AddressController {
     
-    @RequestMapping(value = "/address", produces = "application/json; charser=utf-8")
-    public @ResponseBody Address getAddress() {
+    @Autowired
+    private AddressDAO addressDAO;
+    
+    @RequestMapping(value = "/address/{id}", produces = "application/json; charser=utf-8")
+    public @ResponseBody Address getAddress(@PathVariable("id") int id) {
         
-        Address address = new Address();
-        address.setCiti("Rzeszów");
-        address.setPostcode("35-000");
-        address.setStreet("Łukasiewicza 1234");
+        Address address = addressDAO.findOne(id);
         
         return address;
         
+    }
+    
+    @RequestMapping(value = "/address/save", method = RequestMethod.POST)
+    private @ResponseBody Address saveAddress(Address address) {
+        
+        System.out.println(address);
+        return address;
     }
     
 }

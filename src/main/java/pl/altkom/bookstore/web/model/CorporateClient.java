@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class CorporateClient extends Client {
     private String name;
     private String vatId;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Person> persons = new ArrayList<>();
 
     public void addPerson(Person p) {
@@ -86,4 +87,13 @@ public class CorporateClient extends Client {
     public String toString() {
         return getName() + " with VAT ID: " + getVatId();
     }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+    
 }

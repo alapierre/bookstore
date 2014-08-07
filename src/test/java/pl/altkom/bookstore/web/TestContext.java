@@ -6,13 +6,18 @@
 
 package pl.altkom.bookstore.web;
 
+import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import pl.altkom.bookstore.web.dao.AddressDAO;
+import pl.altkom.bookstore.web.dao.ClientDAO;
 import pl.altkom.bookstore.web.model.Address;
+import pl.altkom.bookstore.web.model.Client;
+import pl.altkom.bookstore.web.model.CorporateClient;
+import pl.altkom.bookstore.web.model.Person;
 
 /**
  *
@@ -24,6 +29,9 @@ public class TestContext extends AbstractTransactionalJUnit4SpringContextTests{
     
     @Autowired
     private AddressDAO addressDAO;
+    
+    @Autowired
+    private ClientDAO clientDAO;
     
     @Test
     public void test() {
@@ -52,5 +60,48 @@ public class TestContext extends AbstractTransactionalJUnit4SpringContextTests{
         
         
     }
+    
+    @Test
+    public void testClientSave() {
+        
+        CorporateClient client = new CorporateClient();
+        
+        Person p = new Person();
+        p.setLastName("Kowalski");
+        p.setFirstName("Jan");
+                
+        client.addPerson(p);
+        
+        client.setName("nazwa klienta");
+        
+        clientDAO.save(client);
+        
+    }
+    
+    @Test
+    public void testLoadClient() {
+        
+        Client c = clientDAO.findOne(3);
+        
+        if( c instanceof CorporateClient) {
+            CorporateClient corpo = (CorporateClient)c;
+            System.out.println(corpo.getName());
+            
+            for(Person p : corpo.getPersons()) {
+                System.out.println(p);
+            }
+            
+            
+        }
+    }
+    
+    @Test
+    public void testFind() {
+    
+        List<Address> res = addressDAO.findByCiti2("miasto");
+        
+        System.out.println(res);
+    }
+    
     
 }
