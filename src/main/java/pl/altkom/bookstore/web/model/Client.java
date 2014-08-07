@@ -7,7 +7,6 @@
 package pl.altkom.bookstore.web.model;
 
 import java.io.Serializable;
-import javax.management.DescriptorKey;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
