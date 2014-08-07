@@ -6,18 +6,30 @@
 
 package pl.altkom.bookstore.web.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 /**
  * Describes individual client
  *
  * @author Radek Kozak
  */
+@Entity
+@DiscriminatorValue("individual")
 public class IndividualClient extends Client {
 
+    @ManyToOne
+    @JoinColumn(name = "person_id")
     private Person person;
+
+    public IndividualClient() {
+    }
 
     public IndividualClient(Person person) {
         this.person = person;
-        setType(ClientType.INDIVIDUAL);
+        //setType(ClientType.INDIVIDUAL);
     }
 
     public Person getPerson() {

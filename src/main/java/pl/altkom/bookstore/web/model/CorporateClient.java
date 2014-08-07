@@ -6,31 +6,35 @@
 
 package pl.altkom.bookstore.web.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 /**
  * Describes corporate client
  * @author Radek Kozak
  */
+@Entity
+@DiscriminatorValue("corporate")
 public class CorporateClient extends Client {
-
+    
     private String name;
     private String vatId;
 
-    private Map<String, Person> persons;
+    @OneToMany
+    private List<Person> persons = new ArrayList<>();
 
     public void addPerson(Person p) {
 
-        String pesel = p.getPeselNumber();
-
-        if(!persons.containsKey(pesel)) {
-            persons.put(pesel, p);
-        }
+        persons.add(p);
     }
 
     public CorporateClient() {
-        setType(ClientType.CORPORATE);
-        this.persons = new HashMap<>();
+        //setType(ClientType.CORPORATE);
     }
 
     public String getName() {
@@ -59,7 +63,12 @@ public class CorporateClient extends Client {
      * @return Person
      */
     public Person getPersonByPesel(String pesel) {
-        return persons.get(pesel);
+        
+        for(Person p : persons) {
+            if(p.getPeselNumber().equals(pesel)) return p;
+        }
+        
+        return null;
     }
 
 
